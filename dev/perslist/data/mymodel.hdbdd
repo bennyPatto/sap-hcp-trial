@@ -1,0 +1,22 @@
+namespace p488660trial.dev.perslist.data;
+@Schema: '_SYS_BIC' 
+    context mymodel {
+        type SString: String(60);
+        @Catalog.tableType: #COLUMN Entity person {
+            key ID: String(10);
+            FIRSTNAME: SString;
+            LASTNAME: SString;
+        };
+    context procedures{ 
+        type pers { 
+            ID: String(10); 
+            FIRSTNAME: SString; 
+            LASTNAME: SString; 
+        };
+        type errors { 
+            HTTP_STATUS_CODE : Integer; 
+            ERROR_MESSAGE : String(100); 
+            DETAIL : String(100); 
+        }; 
+    }; 
+};

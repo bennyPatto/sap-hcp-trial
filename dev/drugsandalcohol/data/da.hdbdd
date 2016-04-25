@@ -1,0 +1,94 @@
+namespace p488660trial.dev.drugsandalcohol.data;
+
+@Schema: '_SYS_BIC'
+context da {
+
+	context people{
+//===========================	
+
+	type Name : String(80);
+     
+    type FullName {
+            firstName : Name ;
+            middleName : Name;
+            lastName : Name;
+    };
+
+   /*
+       Entities:
+   */
+       entity Person {
+            key id : Integer;
+            name : FullName;
+            orgUnit : Name;
+            employeeId : String(20);
+            
+            //address : Association[0..1] to Address; //Association definition
+      };  
+      /*
+       entity Address {
+            key id : Integer;
+            street : Name;
+            number : Integer;
+            zipCode : String(30);
+            city : Name;
+            countryCode : String(2);
+      };
+      
+      
+       view OrgUnitHeadCountGermany as select from Employee {
+            orgUnit,
+            count(id) as headCount
+      }
+      where Employee.address.countryCode = 'DE' //Association usage
+      group by orgUnit;
+     */
+	    context procedures{ 
+	
+	        type errors { 
+	            HTTP_STATUS_CODE : Integer; 
+	            ERROR_MESSAGE : String(100); 
+	            DETAIL : String(100); 
+	        }; 
+	    };      
+ 	}; //end of context People
+
+	context sampling{
+	
+		type readingTypeID : hana.SMALLINT;
+		entity readingType{
+			key id : hana.SMALLINT;
+			description : String(80);
+		};
+		entity reading{
+			key id           : Integer;
+			deviceId         : String(80);
+			type             : association[1..1] to readingType;
+			valueString      : String(550);
+			valueInt         : Integer;
+			valueDec         : DecimalFloat;
+			person           : association to da.people.Person;
+			timeRecorded     : UTCTimestamp;
+			locationRecorded : hana.ST_POINT;			
+			//sample   : association to drugsandalcohol.sampling.sample;
+			// picture??
+		};
+	
+		entity sample{
+			key id : Integer;
+
+			//reading : association[1] to drugsandalcohol.sampling.reading;
+		};
+		
+		//Results - readingType / positive range values / (decision table?)
+	
+	};
+	
+	context planning{
+	// plan type (campaign,random,suspicion?)
+	// campaign (id,reason,date range, interval)
+	
+	};
+    
+
+};

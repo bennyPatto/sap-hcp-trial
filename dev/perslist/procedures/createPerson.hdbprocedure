@@ -1,0 +1,27 @@
+PROCEDURE
+	"_SYS_BIC"."p488660trial.dev.perslist.procedures::createPerson" (
+		IN intab "_SYS_BIC"."p488660trial.dev.perslist.data::mymodel.procedures.pers",
+		OUT outtab "_SYS_BIC"."p488660trial.dev.perslist.data::mymodel.procedures.errors" 
+	)
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER AS
+	--DEFAULT SCHEMA <schema>
+	--READS SQL DATA AS
+begin
+
+declare lv_pers_no string;
+declare lv_firstname string;
+declare lv_lastname string;
+
+select ID, FIRSTNAME, LASTNAME into lv_pers_no, lv_firstname, lv_lastname from :intab;
+
+if :lv_lastname = '' then
+	outtab = select 500 as http_status_code,
+			'Invalid last name ' || lv_firstname as error_message,
+				'No Way! Last name field must not be empty' as detail from dummy;
+else
+	insert into "p488660trial.dev.perslist.data::mymodel.person"
+		values ("p488660trial.dev.perslist.data::pers".NEXTVAL, lv_firstname, lv_lastname);
+end if;
+
+end;

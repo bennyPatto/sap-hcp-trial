@@ -1,0 +1,12 @@
+schema= "_SYS_BIC";
+//schema= "DEV_24TQY65IJOG7CHZQT6ZAQFK8J";
+
+start_with = 1;
+increment_by = 1;    
+maxvalue= 99999999;  
+cycles= false;         // when reaching max/min value 
+
+// A reset_by is triggered on every database restart 
+//reset_by = "SELECT \"ID\" FROM \"_SYS_BIC\".\"p488660trial.dev.drugsandalcohol.data::da.people.Person\" WHERE \"MY_COL2\"='12'"; 
+
+depends_on_table= "p488660trial.dev.drugsandalcohol.data::da.people.Person";

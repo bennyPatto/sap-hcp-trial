@@ -1,0 +1,8 @@
+import = [
+            {
+                table = "p488660trial.dev.perslist.data::mymodel.person";
+                schema = "_SYS_BIC";
+                file = "p488660trial.dev.perslist.data.loads:pers.csv";
+                header = false;
+            }
+    ];

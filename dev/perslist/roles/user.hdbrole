@@ -1,0 +1,8 @@
+role p488660trial.dev.perslist.roles::user {
+    sql object p488660trial.dev.perslist.data::mymodel.person: SELECT, INSERT, UPDATE, DELETE;
+
+    sql object p488660trial.dev.perslist.procedures::createPerson: EXECUTE;
+    sql object p488660trial.dev.perslist.data:pers.hdbsequence: SELECT;
+
+    application privilege: p488660trial.dev.perslist::Basic;
+}

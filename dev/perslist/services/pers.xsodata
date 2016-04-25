@@ -1,0 +1,4 @@
+service {
+	"p488660trial.dev.perslist.data::mymodel.person" as "Persons"
+		create using "p488660trial.dev.perslist.procedures::createPerson";
+}
